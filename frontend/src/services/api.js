@@ -41,7 +41,6 @@ export const authAPI = {
   verifyToken: () => api.get('/auth/verify'),
   updateProfile: (userData) => api.put('/auth/profile', userData),
   
-  // Fixed forgot password methods
   forgotPassword: (email) => api.post('/auth/forgot-password', { email: email.trim() }),
   verifyOTP: (email, otp) => api.post('/auth/verify-otp', { 
     email: email.trim(), 
@@ -61,10 +60,11 @@ export const doctorsAPI = {
   updateAvailability: (id, availability) => api.put(`/doctors/${id}/availability`, { availability }),
 }
 
+// FIXED: Changed to use userId consistently
 export const patientsAPI = {
-  getById: (id) => api.get(`/patients/profile/${id}`),
-  update: (id, data) => api.put(`/patients/profile/${id}`, data),
-  getMedicalHistory: (id) => api.get(`/patients/history/${id}`),
+  getById: (userId) => api.get(`/patients/profile/${userId}`), // userId, not patientId
+  update: (userId, data) => api.put(`/patients/profile/${userId}`, data), // userId, not patientId
+  getMedicalHistory: (userId) => api.get(`/patients/history/${userId}`), // userId, not patientId
 }
 
 export const appointmentsAPI = {

@@ -42,12 +42,16 @@ const Appointment = () => {
 
   const fetchPatientId = async () => {
     try {
+      // FIXED: Pass the user.id (which is the userId)
       const response = await patientsAPI.getById(user.id)
       if (response.data.success) {
+        // Set the patient's actual ID from the Patient table
         setPatientId(response.data.data.id)
+        console.log('Patient ID fetched:', response.data.data.id)
       }
     } catch (error) {
       console.error('Error fetching patient ID:', error)
+      toast.error('Failed to load patient profile. Please try logging in again.')
     }
   }
 
@@ -65,7 +69,7 @@ const Appointment = () => {
     }
 
     if (!patientId) {
-      toast.error('Patient profile not found')
+      toast.error('Patient profile not found. Please contact support.')
       return
     }
 
@@ -73,12 +77,14 @@ const Appointment = () => {
     
     try {
       const appointmentData = {
-        patientId: patientId,
+        patientId: patientId, // This is now the correct patient.id from database
         doctorId: parseInt(formData.doctorId),
         date: formData.date,
         time: formData.time,
         reason: formData.reason
       }
+
+      console.log('Booking appointment with data:', appointmentData)
 
       const response = await appointmentsAPI.create(appointmentData)
       
@@ -289,7 +295,7 @@ const Appointment = () => {
 
                   <button
                     type="submit"
-                    disabled={loading}
+                    disabled={loading || !patientId}
                     className="w-full bg-gradient-to-r from-[#006D77] to-[#005761] text-white py-3 md:py-4 px-6 rounded-lg font-semibold text-base md:text-lg hover:from-[#005761] hover:to-[#004a52] transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
@@ -297,6 +303,8 @@ const Appointment = () => {
                         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                         Booking...
                       </div>
+                    ) : !patientId ? (
+                      'Loading profile...'
                     ) : (
                       'Book Appointment'
                     )}
