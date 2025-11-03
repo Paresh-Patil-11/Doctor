@@ -1,0 +1,7 @@
+1.Images - 1)Doctors(if multiple doctor then mention) 2)Whole team 3) Hospital 
+2.Contact - Phone no., location, address, gmail (if needed), no of year experience 
+3. Hospital time - daily, weekly, monthly (mention that which date/day hospital is closed), Doctor daily time 
+4. Social media link for doctor (if available)
+5. Services - Mention which type of services provided like (Cardiology, Neurology, Orthopedics, Pediatrics, Primary Care, Emergency Care
+)
+6. Journey - mention doctor or hospital Journey from start to end like (Foundation,Expansion,Technology Upgrade,Accreditation)
